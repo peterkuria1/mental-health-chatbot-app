@@ -3,6 +3,9 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, Modal, Pressable } fro
 import { Icon } from 'react-native-elements';
 import moment from 'moment';
 import FloatingButton from './FloatingButton';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faHandHoldingMedical } from '@fortawesome/free-solid-svg-icons';
+import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
 
 const Home = ({ navigation }) => {
   const [greeting, setGreeting] = useState('');
@@ -34,10 +37,13 @@ const Home = ({ navigation }) => {
           </View>
             <Text style={styles.disclaimerText}>Disclaimer:</Text>
             <Text style={styles.modalText}>
-            Our mental health application is designed to provide informational support and is not intended to replace professional medical advice, diagnosis, or treatment. If you are experiencing a mental health crisis or emergency, please seek immediate assistance from a licensed healthcare provider or call your local emergency services. The use of our chatbot is entirely voluntary, and we assume no liability for any decisions or actions taken based on the information provided by the chatbot. By using our chatbot, you acknowledge and agree to these terms.
+            • Our mental health application is designed to provide informational support and is not intended to replace professional medical advice, diagnosis, or treatment.{'\n'}{'\n'}
+            • If you are experiencing a mental health crisis or emergency, please seek immediate assistance from a licensed healthcare provider or call your local emergency services.{'\n'}{'\n'}
+            • The use of our chatbot is entirely voluntary, and we assume no liability for any decisions or actions taken based on the information provided by the chatbot.{'\n'}{'\n'}
+            • By using our chatbot, you acknowledge and agree to these terms.
             </Text>
             <TouchableOpacity
-              style={styles.button}
+              style={styles.modalButton}
               onPress={() => setModalVisible(!modalVisible)}
             >
               <Text style={styles.buttonText}>I agree</Text>
@@ -60,23 +66,37 @@ const Home = ({ navigation }) => {
       <View style={styles.quoteContainer}>
         <Text style={styles.quoteText}>"The best way to predict your future is to create it." - Abraham Lincoln</Text>
       </View>
+      <View style={styles.button_row}>
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Chat')}
       >
-        <Icon name="chat" size={30} color="#297373" />
+        <Icon name="chat" size={35} color="#297373" />
         <Text style={styles.buttonText}>Chat</Text>
+        <Text style={styles.buttonDesc}>Chat with our bot Wellness Buddy</Text>
         <Icon name="arrow-right" size={30} color="#000807" />
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Knowledge')}
       >
-        <Icon name="book" type="font-awesome" size={30} color="#297373" />
-        <Text style={styles.buttonText}>Knowledge Base</Text>
+        <FontAwesomeIcon icon={faChalkboardUser} size={35} color="#297373"/>
+        <Text style={styles.buttonText}>Learning Centre</Text>
+        <Text style={styles.buttonDesc}>Learn more about Mental Health</Text>
         <Icon name="arrow-right" size={30} color="#000807" />
       </TouchableOpacity>
+      </View>
       {/*
+      <TouchableOpacity
+        style={styles.button_emergency}
+        onPress={() => navigation.navigate('Emergency')}
+      >
+        
+        <FontAwesomeIcon icon={faHandHoldingMedical} size={30} color="#000"/>
+        <Text style={styles.buttonText}>Emergency Services</Text>
+        <Icon name="arrow-right" size={30} color="#000807" />
+      </TouchableOpacity>
+      
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Exercises')}
@@ -125,10 +145,29 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     textAlign: 'center',
   },
-  button: {
+  button_row: {
+    flex: 1,
     flexDirection: 'row',
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#E8E9F3',
+    padding: 20,
+    borderRadius: 5,
+    marginBottom: 50,
+    marginTop: 10,
+    margin: 10,
+    width: '50%',
+    height: '70%',
+  },
+  button_emergency: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F2A65A',
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
@@ -139,8 +178,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#000807',
-    marginLeft: 10,
-    marginRight: 10,
+    padding: 5,
+    //marginLeft: 10,
+    //marginRight: 10,
+  },
+  buttonDesc: {
+    paddingTop: 5,
+    paddingBottom : 5,
   },
   modalContainer: {
     flex: 1,
@@ -150,14 +194,23 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: '#FFFFFF',
-    padding: 20,
+    padding: 18,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
     width: '80%',
-    height: '45%',
-    paddingBottom: 160,
-    paddingTop: 8,
+    height: '55%',
+    paddingBottom: 170,
+    paddingTop: 3,
+  },
+  modalButton: {
+    alignItems: 'center',
+    backgroundColor: '#E8E9F3',
+    padding: 15,
+    borderRadius: 5,
+    marginTop: 10,
+    margin: 10,
+    width: '80%',
   },
   disclaimerText: {
     fontSize: 18,
@@ -174,10 +227,11 @@ const styles = StyleSheet.create({
     marginBottom: -100,
   },
   modalText: {
-    marginBottom: 5,
-    paddingBottom: 5,
-    textAlign: 'justify',
-  }
+    marginBottom: 10,
+    paddingBottom: 10,
+    textAlign: 'left',
+    fontSize: 14,
+  },
 });
 
 export default Home;

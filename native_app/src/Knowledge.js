@@ -1,19 +1,22 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Linking } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Knowledge = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Mental Health</Text>
-
       <TouchableOpacity style={styles.sectionContainer} onPress={() => Linking.openURL('https://www.nimh.nih.gov/health/topics/depression/index.shtml')}>
         <Icon name='smile-o' type='font-awesome' color='#4E878C' size={50} />
         <Text style={styles.sectionTitle}>Depression</Text>
         <Text style={styles.sectionDescription}>
           Depression is a common and serious medical illness that negatively affects how you feel, the way you think and how you act.
         </Text>
-        <Text style={styles.sectionReference}>Learn more about depression</Text>
+        <View style={{flexDirection: 'row'}}>
+        <Text style={styles.sectionReference}>Learn more about depression </Text>
+        <FontAwesomeIcon icon={faExternalLinkAlt} color='#007AFF' size={14}/>
+        </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.sectionContainer} onPress={() => Linking.openURL('https://www.nimh.nih.gov/health/topics/anxiety-disorders/index.shtml')}>
@@ -22,7 +25,10 @@ const Knowledge = () => {
         <Text style={styles.sectionDescription}>
           Anxiety disorders involve excessive and unrealistic worry about everyday events, or fear or terror that is out of proportion to the situation.
         </Text>
-        <Text style={styles.sectionReference}>Learn more about anxiety disorders</Text>
+        <View style={{flexDirection: 'row'}}>
+        <Text style={styles.sectionReference}>Learn more about anxiety disorders </Text>
+        <FontAwesomeIcon icon={faExternalLinkAlt} color='#007AFF' size={14}/>
+        </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.sectionContainer} onPress={() => Linking.openURL('https://www.nationaleatingdisorders.org/learn/by-eating-disorder/anorexia')}>
@@ -31,7 +37,10 @@ const Knowledge = () => {
         <Text style={styles.sectionDescription}>
           Eating disorders are serious mental illnesses marked by severe disturbances to a person's eating behaviors.
         </Text>
-        <Text style={styles.sectionReference}>Learn more about eating disorders</Text>
+        <View style={{flexDirection: 'row'}}>
+        <Text style={styles.sectionReference}>Learn more about eating disorders </Text>
+        <FontAwesomeIcon icon={faExternalLinkAlt} color='#007AFF' size={14}/>
+        </View>
       </TouchableOpacity>
     </View>
   );

@@ -9,7 +9,7 @@ const FloatingButton = ({ navigation }) => {
 
   return (
     <TouchableOpacity style={styles.floatingButton} onPress={handlePress}>
-      <Icon name="feedback" size={30} color="#fff" />
+      <Icon name="feedback" size={27} color="#fff" />
     </TouchableOpacity>
   );
 };
@@ -17,12 +17,12 @@ const FloatingButton = ({ navigation }) => {
 const styles = StyleSheet.create({
   floatingButton: {
     position: 'absolute',
-    bottom: 45,
-    right: 30,
+    top: 15,
+    right: 15,
     backgroundColor: 'rgba(242, 166, 90, 0.7)',
     borderRadius: 50,
-    height: 60,
-    width: 60,
+    height: 50,
+    width: 50,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 2,

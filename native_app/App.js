@@ -6,6 +6,7 @@ import Feedback from './src/Feedback';
 import Knowledge from './src/Knowledge';
 import Splash from './src/Splash';
 import Exercises from './src/Exercises';
+import Emergency from './src/Emergency';
 import { StatusBar } from 'react-native';
 import { AppRegistry } from 'react-native';
 //import App from './App';
@@ -41,7 +42,7 @@ export default function App() {
             name="Knowledge"
             component={Knowledge}
             options={{
-              title: 'Knowledge',
+              title: 'Learning Centre',
             }}
           />
           <Stack.Screen
@@ -49,6 +50,13 @@ export default function App() {
             component={Exercises}
             options={{
               title: 'Exercises',
+            }}
+          />
+          <Stack.Screen
+            name="Emergency"
+            component={Emergency}
+            options={{
+              title: 'Emercency',
             }}
           />
         </Stack.Navigator>
