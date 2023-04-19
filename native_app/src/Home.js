@@ -4,8 +4,8 @@ import { Icon } from 'react-native-elements';
 import moment from 'moment';
 import FloatingButton from './FloatingButton';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faHandHoldingMedical } from '@fortawesome/free-solid-svg-icons';
 import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 const Home = ({ navigation }) => {
   const [greeting, setGreeting] = useState('');
@@ -33,7 +33,8 @@ const Home = ({ navigation }) => {
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
           <View style={styles.imageContainer}>
-            <Image source={require('../assets/icons8-medium-risk-50.png')} style={styles.disclaimerImage}/>
+            {/*<Image source={require('../assets/icons8-medium-risk-50.png')} style={styles.disclaimerImage}/>*/}
+            <FontAwesomeIcon icon={faTriangleExclamation} style={styles.disclaimerImage} size={40}/>
           </View>
             <Text style={styles.disclaimerText}>Disclaimer:</Text>
             <Text style={styles.modalText}>
@@ -46,7 +47,7 @@ const Home = ({ navigation }) => {
               style={styles.modalButton}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text style={styles.buttonText}>I agree</Text>
+              <Text style={styles.modalButtonText}>I agree</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -86,26 +87,6 @@ const Home = ({ navigation }) => {
         <Icon name="arrow-right" size={30} color="#000807" />
       </TouchableOpacity>
       </View>
-      {/*
-      <TouchableOpacity
-        style={styles.button_emergency}
-        onPress={() => navigation.navigate('Emergency')}
-      >
-        
-        <FontAwesomeIcon icon={faHandHoldingMedical} size={30} color="#000"/>
-        <Text style={styles.buttonText}>Emergency Services</Text>
-        <Icon name="arrow-right" size={30} color="#000807" />
-      </TouchableOpacity>
-      
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Exercises')}
-      >
-        <Icon name="heart" type="font-awesome" size={30} color="#297373" />
-        <Text style={styles.buttonText}>Exercises</Text>
-        <Icon name="arrow-right" size={30} color="#000807" />
-      </TouchableOpacity>
-      */}
     </View>
   );
 };
@@ -209,8 +190,15 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 5,
     marginTop: 10,
-    margin: 10,
-    width: '80%',
+    margin: 5,
+    width: '70%',
+    height: '16%',
+  },
+  modalButtonText: {
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000807',
   },
   disclaimerText: {
     fontSize: 18,
@@ -220,11 +208,9 @@ const styles = StyleSheet.create({
     marginTop: -50,
   },
   disclaimerImage: {
-    width: 35,
-    height: 35,
-    resizeMode: 'contain',
     marginTop: 20,
     marginBottom: -100,
+    color: '#F2A65A'
   },
   modalText: {
     marginBottom: 10,

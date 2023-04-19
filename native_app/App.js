@@ -5,13 +5,7 @@ import BottomNavigation from './src/BottomNavigation';
 import Feedback from './src/Feedback';
 import Knowledge from './src/Knowledge';
 import Splash from './src/Splash';
-import Exercises from './src/Exercises';
-import Emergency from './src/Emergency';
 import { StatusBar } from 'react-native';
-import { AppRegistry } from 'react-native';
-//import App from './App';
-
-//AppRegistry.registerComponent('MyApp', () => App);
 
 const Stack = createStackNavigator();
 
@@ -43,20 +37,6 @@ export default function App() {
             component={Knowledge}
             options={{
               title: 'Learning Centre',
-            }}
-          />
-          <Stack.Screen
-            name="Exercises"
-            component={Exercises}
-            options={{
-              title: 'Exercises',
-            }}
-          />
-          <Stack.Screen
-            name="Emergency"
-            component={Emergency}
-            options={{
-              title: 'Emercency',
             }}
           />
         </Stack.Navigator>
