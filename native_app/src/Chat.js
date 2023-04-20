@@ -14,6 +14,36 @@ const Chat = ({ navigation }) => {
   const [userHasSentMessage, setUserHasSentMessage] = useState(false);
 
   useEffect(() => {
+    // Load previously saved chat messages from local storage
+    const loadMessages = async () => {
+      try {
+        const storedMessages = await AsyncStorage.getItem('chatMessages');
+        if (storedMessages) {
+          setMessages(JSON.parse(storedMessages));
+          setShowButtons(false);
+        }
+      } catch (e) {
+        console.error('Failed to load chat messages from local storage:', e);
+      }
+    };
+
+    loadMessages();
+  }, []);
+
+  useEffect(() => {
+    // Save chat messages to local storage whenever they are updated
+    const saveMessages = async () => {
+      try {
+        await AsyncStorage.setItem('chatMessages', JSON.stringify(messages));
+      } catch (e) {
+        console.error('Failed to save chat messages to local storage:', e);
+      }
+    };
+
+    saveMessages();
+  }, [messages]);
+
+  useEffect(() => {
     setMessages([
       {
         _id: 1,
@@ -33,18 +63,6 @@ const Chat = ({ navigation }) => {
       },
     ]);
   }, []);
-
-  useEffect(() => {
-    const saveMessages = async () => {
-      try {
-        await AsyncStorage.setItem('chatMessages', JSON.stringify(messages));
-      } catch (e) {
-        console.error('Failed to save chat messages to local storage:', e);
-      }
-    };
-
-    saveMessages();
-  }, [messages]);
 
   const onSend = async (newMessages = []) => {
     setMessages((previousMessages) => GiftedChat.append(previousMessages, newMessages));
@@ -118,6 +136,33 @@ const Chat = ({ navigation }) => {
     />
   );
 
+const renderChatFooter = (props) => {
+  if (!props || !props.messages) {
+    return null;
+  }
+
+  return (
+    <View style={styles.chatFooter}>
+      {props.messages.map((message, index) => {
+        if (index > 0) {
+          const prevMessage = props.messages[index - 1];
+          const currentDate = new Date(message.createdAt);
+          const prevDate = new Date(prevMessage.createdAt);
+          const isSameDay = currentDate.toDateString() === prevDate.toDateString();
+          const messageDate = isSameDay ? null : (
+            <Text style={styles.messageDate}>
+              {currentDate.toLocaleDateString()}
+            </Text>
+          );
+          return messageDate;
+        }
+        return null;
+      })}
+    </View>
+  );
+};
+
+
   const renderInputToolbar = (props) => {
     const handleButtonPress = (text, inputToolbarProps) => {
       const newText = `${inputToolbarProps.text.trim()} ${text}`;
@@ -127,8 +172,7 @@ const Chat = ({ navigation }) => {
         setShowButtons(false);
       }
     };
-    
-  
+
     return (
       <View style={{ flexDirection: 'column', alignItems: 'stretch', flex: userHasSentMessage ? 1 : 0,}}>
         <InputToolbar
@@ -144,7 +188,7 @@ const Chat = ({ navigation }) => {
             
           }}
         />
-        {showButtons && (
+        {showButtons ? (
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.pelletButton} onPress={() => handleButtonPress('I am feeling ', props)}>
               <Text style={styles.buttonText}>I am feeling...</Text>
@@ -152,8 +196,9 @@ const Chat = ({ navigation }) => {
             <TouchableOpacity style={styles.pelletButton} onPress={() => handleButtonPress('What is depression?', props)}>
               <Text style={styles.buttonText}>What is depression?</Text>
             </TouchableOpacity>
-
           </View>
+        ): (
+          <View style={styles.noButtonContainer} />
         )}
       </View>
     );
@@ -172,13 +217,20 @@ const Chat = ({ navigation }) => {
         alignTop={true}
         renderSystemMessage={renderSystemMessage}
         renderInputToolbar={renderInputToolbar}
+        renderChatFooter={renderChatFooter}
         containerStyle={{
           flex: 1,
           backgroundColor: '#FFFFFF',
           padding: 10,
           marginBottom: showButtons ? 70 : 0
         }}        
-        //height={height - 70 - (showButtons ? 60 : 0)}
+        listViewProps={{
+          style: {
+            backgroundColor: '#fff',
+            marginBottom: showButtons ? 70 : 0 // or any other value as needed
+          }
+        }}
+        scrollToBottom
 
       />
     </View>
@@ -207,6 +259,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 16,
   },
+
+  noButtonContainer: {
+    marginVertical: 23,
+  },
   
   pelletButton: {
     paddingHorizontal: 15,
@@ -217,6 +273,22 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     color: '#ffffff',
+  },
+  chatFooter: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  dateContainer: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    backgroundColor: '#F0F0F0',
+    borderRadius: 10,
+    marginVertical: 5,
+  },
+  dateText: {
+    fontSize: 12,
+    color: '#999999',
   },
   
 });

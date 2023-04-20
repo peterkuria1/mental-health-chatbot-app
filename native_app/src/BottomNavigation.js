@@ -4,6 +4,7 @@ import { Icon } from 'react-native-elements';
 
 import Home from './Home';
 import Chat from './Chat';
+import Settings from './Settings';
 import PrivacyPolicy from './PrivacyPolicy';
 
 const Tab = createBottomTabNavigator();
@@ -19,6 +20,8 @@ const BottomNavigation = () => {
             iconName = 'home';
           } else if (route.name === 'Chat') {
             iconName = 'chat';
+          } else if (route.name === 'Settings') {
+            iconName = 'settings';
           } else if (route.name === 'Privacy') {
             iconName = 'lock';
           }
@@ -35,6 +38,7 @@ const BottomNavigation = () => {
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Chat" component={Chat} />
+      <Tab.Screen name="Settings" component={Settings} />
       <Tab.Screen name="Privacy" component={PrivacyPolicy} />
     </Tab.Navigator>
   );
